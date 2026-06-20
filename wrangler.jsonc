@@ -17,5 +17,6 @@
 	"secrets": {
 		"required": ["DISCORD_APPLICATION_ID", "DISCORD_BOT_TOKEN"]
 	},
-	"workers_dev": true
+	"workers_dev": true,
+	"preview_urls": false
 }
