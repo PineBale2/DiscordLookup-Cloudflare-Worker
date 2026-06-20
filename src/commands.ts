@@ -50,13 +50,27 @@ export const cmds: [
 					return ctx.followup(`API error ${res.status}: ${res.text}`);
 				}
 				const resBody = await res.json();
-				return ctx.followup(`User info of ${resBody.username}:
 
-				ID: ${resBody.id}
-				Username: ${resBody.username}
-				Discriminator: #${resBody.discriminator}
-				${resBody.global_name ?? `Display name: ${resBody.global_name}\n`}${resBody.avatar ? `Avatar hash: ${resBody.avatar}` : "This user does not have a custom avatar."}
-				`);
+				const usrType = resBody.bot === true ? "Bot" : "User";
+				const creationTimeUnix =
+					(Number(resBody.id) >> 22) + 1420070400000;
+				let usrn = resBody.username;
+				if (resBody.discriminator !== "0") {
+					usrn += `#${resBody.discriminator}`;
+				}
+
+				let rep = `
+${usrType} info of ${resBody.username}:
+
+ID: ${resBody.id}
+Creation time: <t:${creationTimeUnix}:F> (${creationTimeUnix})
+Username: ${usrn}
+`;
+				if (resBody.global_name) {
+					rep += `Display name: ${resBody.global_name}\n`;
+				}
+				rep += `${resBody.avatar ? `[Avatar hash: ${resBody.avatar}](https://cdn.discordapp.com/avatars/${resBody.id}/${resBody.avatar}.webp?size=4096)` : "This user does not have a custom avatar."}\n`;
+				return ctx.followup(rep);
 			});
 		},
 		(ctx) => {
