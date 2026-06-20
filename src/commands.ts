@@ -44,7 +44,7 @@ export const cmds: [
 		(c) => {
 			const id = c.var[constants.cmd_name_fetchuser_option_userid];
 			return c.resDefer(async (ctx) => {
-				const res = await ctx.rest("GET", $users$_, id);
+				const res = await ctx.rest("GET", $users$_, [id]);
 				if (!res.ok) {
 					ctx.flags("EPHEMERAL");
 					return ctx.followup(`API error ${res.status}: ${res.text}`);
