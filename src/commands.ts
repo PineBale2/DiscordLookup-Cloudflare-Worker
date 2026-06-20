@@ -53,7 +53,10 @@ export const cmds: [
 
 				const usrType = resBody.bot === true ? "Bot" : "User";
 				const creationTimeUnix =
-					(Number(resBody.id) >> 22) + 1420070400000;
+					(BigInt(resBody.id) >> 22n) + 1420070400000n;
+				const creationTime = Math.floor(
+					new Date(Number(creationTimeUnix)).getTime() / 1000
+				);
 				let usrn = resBody.username;
 				if (resBody.discriminator !== "0") {
 					usrn += `#${resBody.discriminator}`;
@@ -63,7 +66,7 @@ export const cmds: [
 ${usrType} info of ${resBody.username}:
 
 ID: ${resBody.id}
-Creation time: <t:${creationTimeUnix}:F> (${creationTimeUnix})
+Creation time: <t:${creationTime}:F> (${creationTimeUnix})
 Username: ${usrn}
 `;
 				if (resBody.global_name) {
