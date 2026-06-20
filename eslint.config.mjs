@@ -79,9 +79,9 @@ export default tseslint.config(
 		rules: {
 			semi: ["error", "always"],
 			camelcase: "off",
-			"no-console": "warn",
+			"no-console": "off",
 			"no-shadow": "off",
-			"import/no-namespace": "warn",
+			"import/no-namespace": "off",
 			"prettier/prettier": "error"
 		}
 	}
