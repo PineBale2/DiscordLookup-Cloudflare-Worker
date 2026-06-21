@@ -65,7 +65,7 @@ export const cmds: [
 ${usrType} info of ${resBody.username}:
 
 ID: ${resBody.id}
-Creation time: <t:${creationTime}:F> (${creationTimeUnix})
+Creation time: <t:${creationTime}:R> (${creationTimeUnix})
 Username: ${usrn}
 `;
 				if (resBody.global_name) {
