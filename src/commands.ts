@@ -71,7 +71,7 @@ Username: ${usrn}
 				if (resBody.global_name) {
 					rep += `Display name: ${resBody.global_name}\n`;
 				}
-				rep += `${resBody.avatar ? `[Avatar hash: ${resBody.avatar}](https://cdn.discordapp.com/avatars/${resBody.id}/${resBody.avatar}.webp?size=4096)` : `This ${usrType.toLowerCase()} does not have a custom avatar.`}\n`;
+				rep += `${resBody.avatar ? `[Avatar hash: ${resBody.avatar}](https://cdn.discordapp.com/avatars/${resBody.id}/${resBody.avatar}.webp?size=4096${resBody.avatar.startsWith("a_") ? "&animated=true" : ""})` : `This ${usrType.toLowerCase()} does not have a custom avatar.`}\n`;
 				if (resBody.primary_guild) {
 					if (resBody.primary_guild.identity_guild_id) {
 						rep += `Primary guild ID: ${resBody.primary_guild.identity_guild_id}`;
