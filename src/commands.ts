@@ -4,8 +4,7 @@ import {
 	AutocompleteHandler,
 	Command,
 	CommandHandler,
-	Option,
-	register
+	Option
 } from "discord-hono";
 import {
 	ApplicationCommandType,
@@ -82,9 +81,3 @@ Username: ${usrn}
 		}
 	]
 ];
-
-register(
-	cmds.map((v) => v[1](v[0])),
-	process.env.DISCORD_APPLICATION_ID,
-	process.env.DISCORD_BOT_TOKEN
-);
