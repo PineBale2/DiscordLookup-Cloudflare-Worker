@@ -9,7 +9,8 @@ import {
 import {
 	ApplicationCommandType,
 	ApplicationIntegrationType,
-	InteractionContextType
+	InteractionContextType,
+	MessageFlags
 } from "discord-api-types/v10";
 import * as constants from "./constants";
 
@@ -45,8 +46,18 @@ export const cmds: [
 			return c.resDefer(async (ctx) => {
 				const res = await ctx.rest("GET", $users$_, [id]);
 				if (!res.ok) {
-					ctx.flags("EPHEMERAL");
-					return ctx.followup(`API error ${res.status}: ${res.text}`);
+					const resText = await res.text();
+					console.error(`API error ${res.status}: ${resText}`);
+					if (res.status === 404) {
+						return ctx.followup({
+							content: "Not found.",
+							flags: MessageFlags.Ephemeral
+						});
+					}
+					return ctx.followup({
+						content: `API error ${res.status}`,
+						flags: MessageFlags.Ephemeral
+					});
 				}
 				const resBody = await res.json();
 
