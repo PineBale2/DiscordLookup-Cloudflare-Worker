@@ -5,4 +5,6 @@ register(
 	[fetchuser.command],
 	process.env.DISCORD_APPLICATION_ID,
 	process.env.DISCORD_BOT_TOKEN
-);
+).catch((e) => {
+	throw e;
+});
