@@ -1,18 +1,13 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+import { DiscordHono } from "discord-hono";
+import { cmds } from "./commands";
 
-export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		return new Response("Hello World!");
-	},
-} satisfies ExportedHandler<Env>;
+let app = new DiscordHono();
+cmds.forEach((cmd) => {
+	if (cmd.length == 4 && cmd[3]) {
+		app = app.autocomplete(cmd[0], cmd[3], cmd[2]);
+	} else {
+		app = app.command(cmd[0], cmd[2]);
+	}
+});
+
+export default app;
