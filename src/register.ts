@@ -1,8 +1,8 @@
 import { register } from "discord-hono";
-import { cmds } from "./commands";
+import * as fetchuser from "./commands/fetchuser";
 
 register(
-	cmds.map((v) => v[1](v[0])),
+	[fetchuser.command],
 	process.env.DISCORD_APPLICATION_ID,
 	process.env.DISCORD_BOT_TOKEN
 );
