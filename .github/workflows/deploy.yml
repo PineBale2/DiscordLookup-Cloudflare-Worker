@@ -28,7 +28,7 @@ jobs:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
 
       - name: Wrangler
-        run: sed -i 's/<name>/$WORKER_NAME/g' wrangler.jsonc
+        run: sed -i "s/<name>/$WORKER_NAME/g" wrangler.jsonc
         env:
           WORKER_NAME: ${{ secrets.WORKER_NAME }}
 
