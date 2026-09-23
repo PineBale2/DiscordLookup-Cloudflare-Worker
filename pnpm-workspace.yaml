@@ -1,5 +1,4 @@
 strictDepBuilds: true
-packageManagerStrict: true
 
 allowBuilds:
   esbuild: true
