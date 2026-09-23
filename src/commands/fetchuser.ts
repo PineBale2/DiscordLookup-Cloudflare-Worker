@@ -100,5 +100,23 @@ Username: ${usrn}
 
 export const autocompleter: AutocompleteHandler<any> = (ctx) => {
 	const uin = ctx.focused?.value.toString() || "";
-	return ctx.resAutocomplete(new Autocomplete(uin).choices());
+	return ctx.resAutocomplete(
+		new Autocomplete(uin).choices(
+			...process.env.DISCORD_PRESETS.split(";")
+				.map((v) => {
+					const o = v.split(":");
+					const name = o[0];
+					const value = o[1];
+					return {
+						name: name,
+						value: value
+					};
+				})
+				.filter(
+					(item) =>
+						item.name.startsWith(uin) || item.value.startsWith(uin)
+				)
+				.slice(0, 25)
+		)
+	);
 };

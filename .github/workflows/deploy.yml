@@ -21,7 +21,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
 
@@ -41,12 +41,17 @@ jobs:
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
 
+      - name: Wrangler
+        run: sed -i 's/<name>/$WORKER_NAME/g' wrangler.jsonc
+        env:
+          WORKER_NAME: ${{ secrets.WORKER_NAME }}
+
       - uses: cloudflare/wrangler-action@v4
         env:
           DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
-          DISCORD_PRESETS: ""
+          DISCORD_PRESETS: ${{ secrets.DISCORD_PRESETS }}
         with:
           secrets: |
             DISCORD_APPLICATION_ID
