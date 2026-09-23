@@ -1,20 +1,6 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "src/*.ts"
-      - "test/*.ts"
-      - "test/tsconfig.json"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "pnpm-workspace.yaml"
-      - "tsconfig.json"
-      - "vitest.config.mts"
-      - "worker-configuration.d.ts"
-      - "wrangler.jsonc"
   workflow_dispatch:
 
 
